@@ -120540,7 +120540,7 @@ class Test {
         const strId = e.target.getAttribute('data-id'); //const x = d.attr("id")
 
         let intId = Number(strId);
-        if (500000 > intId > 400000) intId = intId - 300000;
+        if (500000 > intId && intId > 400000) intId = intId - 300000;
         const d = intId + "";
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id") || `${d}`;
@@ -121111,7 +121111,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "23916" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "17768" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
