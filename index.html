@@ -29,11 +29,22 @@
         justify-content: center;
         margin: auto;
       }
+      #range {
+        position: absolute;
+        right: 20%;
+        top: 40%;
+      }
+      #range>input {
+        width: 200px;
+        height: 50px;
+      }
+
     </style>
     <title>Flower Kngint Girls</title>
   </head>
   <link rel="stylesheet" href="./style.css"></link>
   <body style="background-color: rgb(245, 237, 230);">
+    <script language="javascript" type="text/javascript" src="src/test.js"></script>
     <div id="hs-container">
       <div id="hs-loading"></div>
       <div id="logo"><img src="./logo.png"></div>
@@ -48,6 +59,11 @@
       <div id="hs-dialog">
         <span id="hs-text"></span>
       </div>
+    </div>
+    <div id="range" style="display: none;">
+      <input id="range1" type="range" min="0" max="255" ></input><br>  <!--onchange="changeColor"-->
+      <input id="range2" type="range" min="0" max="255" ></input><br>
+      <input id="range3" type="range" min="0" max="255" ></input><br>
     </div>
     <div id="name-download">
       <div id="animationNames">

@@ -120532,7 +120532,19 @@ window.PIXI = PIXI;
 require("pixi-spine");
 
 class Test {
+  changeColor() {
+    var value1 = document.getElementById("range1").value;
+    var value2 = document.getElementById("range2").value;
+    var value3 = document.getElementById("range3").value;
+    var color = "rgb(" + value1 + "," + value2 + "," + value3 + ")";
+    console.log(color);
+    return color;
+  }
+
   constructor() {
+    //txt的id不全，新建一个array数组
+    const noSpine = new Array('140901', '126401', '150809', '160803', '162401', '165601', '169601', '112807000');
+
     window.onclick = e => {
       // window.addEventListener('click', (e) => {  //addEventListener会事件多次绑定，改用onclick，后一次click绑定会覆盖调前一次
       // e.stopPropagation();
@@ -120543,7 +120555,8 @@ class Test {
         if (500000 > intId && intId > 400000) intId = intId - 300000;
         const d = intId + "";
         const urlParams = new URLSearchParams(window.location.search);
-        const id = urlParams.get("id") || `${d}`;
+        const id = urlParams.get("id") || `${d}`; // const color = this.changeColor();
+
         const CryptoJS = {
           MD5: _md.default
         }; // const SCREEN_W_PC = 960;
@@ -120554,9 +120567,10 @@ class Test {
         this.width = 960; // this.height = 580
 
         const globalScale = 1.2;
-        const spineGlobalScale = Number(document.getElementById("point").value);
+        const spineGlobalScale = Number(document.getElementById("point").value); //获取前端输入框值，设置缩放比例
+
         const app = new PIXI.Application({
-          id: id,
+          id: "spineanimation",
           width: this.width,
           //画布宽度
           // height: this.height,
@@ -120565,6 +120579,7 @@ class Test {
           // backgroundColor: Node,
           backgroundColor: 0x666666,
           //背景色
+          // backgroundColor: color,
           transparent: false,
           //背景无透明度
           preserveDrawingBuffer: true
@@ -120705,6 +120720,7 @@ class Test {
             update(deltaTime) {
               this.currentTime += this.timeScale * (deltaTime / 60);
               const frameIndex = Math.floor(this.currentTime * 30) % this.activeAnimation.frames.length;
+              console.log("test");
 
               try {
                 if (this.activeAnimation.frames.length == 0) return; //如果length为0，即该动作不存在时，跳过此动作，否则会出错
@@ -120747,6 +120763,7 @@ class Test {
 
         const loadSpineAnimation = (resources, textureUrl) => {
           const spineAtlas = new PIXI.spine.core.TextureAtlas(resources.atlas.data, (line, callback) => {
+            console.log(line);
             callback(PIXI.BaseTexture.from(textureUrl));
           }); // createSpineData
 
@@ -120834,7 +120851,7 @@ class Test {
           const isPC = (await pcCharsRes.text()).includes(id);
           let animationsContainer;
 
-          if (!isSpine || id == '140901' || id == '126401' || id == '150809' || id == '160803' || id == '162401' || id == '165601' || id == '169601' || id == '112807000') {
+          if (!isSpine || noSpine.includes(id)) {
             const sdRoot = `${assetsRoot}sdcharacter${isPC ? `_pc` : ``}`;
             const atlasHash = CryptoJS.MD5(`string${id}/chibi_${id}_atlas_`);
             const jsonHash = CryptoJS.MD5(`string${id}/chibi_${id}`);
@@ -121009,6 +121026,9 @@ function showIconTable(charaData, charaTable) {
 
         document.getElementById("hs-frame").style.display = "none";
         document.getElementById("hs-spine").style.display = "block";
+        document.getElementById("hs-container").style.opacity = 1; //当展示动画，父节点背景不透明度设为1
+        // document.getElementById("range").style.display="block";
+
         test = new _test.Test(); // console.log(test)
         // console.log(document.querySelectorAll('canvas'))
 
@@ -121111,7 +121131,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "17768" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43582" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

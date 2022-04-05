@@ -67,6 +67,8 @@ function showIconTable(charaData, charaTable) {
         }
         document.getElementById("hs-frame").style.display="none";
         document.getElementById("hs-spine").style.display="block";
+        document.getElementById("hs-container").style.opacity=1;  //当展示动画，父节点背景不透明度设为1
+        // document.getElementById("range").style.display="block";
         test = new Test()
         // console.log(test)
         // console.log(document.querySelectorAll('canvas'))

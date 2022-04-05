@@ -8,7 +8,23 @@ require("pixi-spine");
 
 
 export class Test {
+
+
+  changeColor(){
+    var value1 = document.getElementById("range1").value;
+    var value2 = document.getElementById("range2").value;
+    var value3 = document.getElementById("range3").value;
+    var color = "rgb(" + value1 + "," + value2 + "," + value3 + ")";
+    console.log(color)
+    return color; 
+  }
+
+  
+  
   constructor() {
+    //txt的id不全，新建一个array数组
+    const noSpine = new Array('140901','126401','150809','160803','162401','165601','169601','112807000')
+
     window.onclick = (e) => {
     // window.addEventListener('click', (e) => {  //addEventListener会事件多次绑定，改用onclick，后一次click绑定会覆盖调前一次
       // e.stopPropagation();
@@ -21,6 +37,8 @@ export class Test {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get("id") || `${d}`;
 
+        
+        // const color = this.changeColor();
 
                   
         const CryptoJS = { MD5 };
@@ -32,14 +50,15 @@ export class Test {
         this.width = 960
         // this.height = 580
         const globalScale = 1.2;
-        const spineGlobalScale = Number(document.getElementById("point").value);
+        const spineGlobalScale = Number(document.getElementById("point").value);  //获取前端输入框值，设置缩放比例
         const app = new PIXI.Application({
-        id: id,
+        id: "spineanimation",
         width: this.width,        //画布宽度
         // height: this.height,
         height:this.width * 2 / 3,    //画布高度
         // backgroundColor: Node,
         backgroundColor: 0x666666,   //背景色
+        // backgroundColor: color,
         transparent: false,   //背景无透明度
         preserveDrawingBuffer: true
         });
@@ -192,6 +211,7 @@ export class Test {
             const frameIndex =
               Math.floor(this.currentTime * 30) % this.activeAnimation.frames.length;
 
+            console.log("test")
             try {
               if(this.activeAnimation.frames.length == 0) return   //如果length为0，即该动作不存在时，跳过此动作，否则会出错
               this.setActiveChild(this.activeAnimation.frames[frameIndex]);
@@ -226,6 +246,7 @@ export class Test {
         const spineAtlas = new PIXI.spine.core.TextureAtlas(
           resources.atlas.data,
           (line, callback) => {
+            console.log(line)
             callback(PIXI.BaseTexture.from(textureUrl));
           }
         );
@@ -312,8 +333,7 @@ export class Test {
         const isSpine = (await spineCharsRes.text()).includes(id);   //includes方法不支持正则
         const isPC = (await pcCharsRes.text()).includes(id);
         let animationsContainer;
-        if (!isSpine || id == '140901' || id == '126401' || id == '150809' ||id == '160803'
-        || id == '162401' || id == '165601' || id == '169601' || id == '112807000') {  
+        if (!isSpine || noSpine.includes(id)) {  
           const sdRoot = `${assetsRoot}sdcharacter${isPC ? `_pc` : ``}`;
           const atlasHash = CryptoJS.MD5(`string${id}/chibi_${id}_atlas_`);
           const jsonHash = CryptoJS.MD5(`string${id}/chibi_${id}`);
